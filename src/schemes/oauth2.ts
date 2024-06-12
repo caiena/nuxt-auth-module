@@ -61,6 +61,7 @@ export interface Oauth2SchemeOptions
   acrValues: string
   audience: string
   autoLogout: boolean
+  _routerBaseURL?: string
 }
 
 const DEFAULTS: SchemePartialOptions<Oauth2SchemeOptions> = {
@@ -390,7 +391,7 @@ export class Oauth2Scheme<
       const response = await this.$auth.request({
         method: 'post',
         url: this.options.endpoints.token,
-        baseURL: '',
+        baseURL: this.options._routerBaseURL || '',
         data: encodeQuery({
           code: parsedQuery.code as string,
           client_id: this.options.clientId + '',
